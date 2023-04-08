@@ -2,6 +2,7 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import {
   Box,
   Container,
+  Divider,
   Grid,
   IconButton,
   TextField,
@@ -81,7 +82,7 @@ function App() {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(generatePrompt()).then(
       () => {
-        console.log("Copied to clipboard!");
+        console.log("Copied to clipboard!", generatePrompt());
       },
       (err) => {
         console.error("Failed to copy text: ", err);
@@ -133,6 +134,7 @@ function App() {
         {renderVariableFields()}
 
         <Grid item xs={12}>
+          <Divider sx={{ marginY: 8 }} />
           <Typography variant="h5">Generated Prompt</Typography>
           <Box mt={1} display="flex" alignItems="center">
             <TextField
