@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/chatgpt-prompt-builder/static/css/main.e6c13ad2.css",
+    "main.js": "/chatgpt-prompt-builder/static/js/main.04d01f6f.js",
+    "static/js/787.74d080c3.chunk.js": "/chatgpt-prompt-builder/static/js/787.74d080c3.chunk.js",
+    "index.html": "/chatgpt-prompt-builder/index.html",
+    "main.e6c13ad2.css.map": "/chatgpt-prompt-builder/static/css/main.e6c13ad2.css.map",
+    "main.04d01f6f.js.map": "/chatgpt-prompt-builder/static/js/main.04d01f6f.js.map",
+    "787.74d080c3.chunk.js.map": "/chatgpt-prompt-builder/static/js/787.74d080c3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.04d01f6f.js"
+  ]
+}
