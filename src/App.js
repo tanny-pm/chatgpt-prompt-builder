@@ -112,7 +112,7 @@ function App() {
               onChange={handleTemplateChange}
               fullWidth
               multiline
-              rows={4}
+              rows={6}
             />
           </Box>
         </Grid>
@@ -136,13 +136,13 @@ function App() {
         <Grid item xs={12}>
           <Divider sx={{ marginY: 8 }} />
           <Typography variant="h5">Generated Prompt</Typography>
-          <Box mt={1} display="flex" alignItems="center">
+          <Box mt={1} mb={10} display="flex" alignItems="center">
             <TextField
               label="プロンプト"
               value={generatePrompt()}
               fullWidth
               multiline
-              rows={4}
+              rows={6}
             />{" "}
             <IconButton
               onClick={copyToClipboard}
