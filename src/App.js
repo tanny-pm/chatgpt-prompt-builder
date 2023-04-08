@@ -1,4 +1,12 @@
-import { Box, Container, Grid, TextField, Typography } from "@mui/material";
+import FileCopyIcon from "@mui/icons-material/FileCopy";
+import {
+  Box,
+  Container,
+  Grid,
+  IconButton,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 function App() {
@@ -70,6 +78,17 @@ function App() {
     return result;
   };
 
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(generatePrompt()).then(
+      () => {
+        console.log("Copied to clipboard!");
+      },
+      (err) => {
+        console.error("Failed to copy text: ", err);
+      }
+    );
+  };
+
   // デフォルトのテンプレートを読み込んだときに変数を抽出する
   useEffect(() => {
     extractVariables(defaultTemplate, defaultDelimiter);
@@ -112,10 +131,24 @@ function App() {
           <Typography variant="h5">Variable Input</Typography>
         </Grid>
         {renderVariableFields()}
+
         <Grid item xs={12}>
           <Typography variant="h5">Generated Prompt</Typography>
-          <Box mt={1}>
-            <Typography>{generatePrompt()}</Typography>
+          <Box mt={1} display="flex" alignItems="center">
+            <TextField
+              label="プロンプト"
+              value={generatePrompt()}
+              fullWidth
+              multiline
+              rows={4}
+            />{" "}
+            <IconButton
+              onClick={copyToClipboard}
+              color="primary"
+              aria-label="copy to clipboard"
+            >
+              <FileCopyIcon />
+            </IconButton>
           </Box>
         </Grid>
       </Grid>
