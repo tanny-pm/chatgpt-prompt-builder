@@ -2,8 +2,8 @@ import { Box, Container, Grid, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 function App() {
-  const defaultTemplate = "{{翻訳したい言葉}}を{{言語}}に翻訳してください";
-  const defaultDelimiter = "{{}}";
+  const defaultTemplate = "{翻訳したい言葉}を{言語}に翻訳してください";
+  const defaultDelimiter = "{}";
 
   const [template, setTemplate] = useState(defaultTemplate);
   const [variableDelimiter, setVariableDelimiter] = useState(defaultDelimiter);
@@ -56,9 +56,17 @@ function App() {
 
   const generatePrompt = () => {
     let result = template;
-    for (const variable in variableValues) {
-      result = result.replace(`{{${variable}}}`, variableValues[variable]);
+
+    for (const variable of variables) {
+      const value = variableValues[variable] || variable;
+      result = result.replace(
+        `${variableDelimiter.charAt(0)}${variable}${variableDelimiter.charAt(
+          1
+        )}`,
+        value
+      );
     }
+
     return result;
   };
 
@@ -84,6 +92,7 @@ function App() {
               onChange={handleTemplateChange}
               fullWidth
               multiline
+              rows={4}
             />
           </Box>
         </Grid>
