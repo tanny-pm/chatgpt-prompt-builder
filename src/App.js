@@ -3,26 +3,39 @@ import React, { useEffect, useState } from "react";
 
 function App() {
   const defaultTemplate = "{{翻訳したい言葉}}を{{言語}}に翻訳してください";
+  const defaultDelimiter = "{{}}";
 
   const [template, setTemplate] = useState(defaultTemplate);
+  const [variableDelimiter, setVariableDelimiter] = useState(defaultDelimiter);
   const [variables, setVariables] = useState([]);
   const [variableValues, setVariableValues] = useState({});
 
   const handleTemplateChange = (e) => {
     setTemplate(e.target.value);
-    extractVariables(e.target.value);
+    extractVariables(e.target.value, variableDelimiter);
   };
 
-  const extractVariables = (template) => {
-    const regex = /{{(.*?)}}/g;
-    let matches;
-    let newVariables = [];
+  const handleDelimiterChange = (event) => {
+    setVariableDelimiter(event.target.value);
+    extractVariables(template, event.target.value);
+  };
 
-    while ((matches = regex.exec(template)) !== null) {
-      newVariables.push(matches[1].trim());
+  const extractVariables = (inputTemplate, delimiter) => {
+    if (delimiter.length < 2) {
+      setVariables([]);
+      return;
     }
 
-    setVariables(newVariables);
+    const regexStr = `${delimiter.charAt(0)}(.*?)${delimiter.charAt(1)}`;
+    const regex = new RegExp(regexStr, "g");
+    const extractedVariables = [];
+    let match;
+
+    while ((match = regex.exec(inputTemplate)) !== null) {
+      extractedVariables.push(match[1]);
+    }
+
+    setVariables([...new Set(extractedVariables)]);
   };
 
   const handleVariableCahange = (variable, value) => {
@@ -51,7 +64,7 @@ function App() {
 
   // デフォルトのテンプレートを読み込んだときに変数を抽出する
   useEffect(() => {
-    extractVariables(defaultTemplate);
+    extractVariables(defaultTemplate, defaultDelimiter);
   }, []);
 
   return (
@@ -74,6 +87,18 @@ function App() {
             />
           </Box>
         </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h5">Separater Input</Typography>
+          <Box mt={1}>
+            <TextField
+              label="セパレーター"
+              value={variableDelimiter}
+              onChange={handleDelimiterChange}
+              fullWidth
+            />
+          </Box>
+        </Grid>
+
         <Grid item xs={12}>
           <Typography variant="h5">Variable Input</Typography>
         </Grid>
